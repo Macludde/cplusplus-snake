@@ -1,12 +1,15 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "game.h"
+#include "config.h"
+#include <ctime>
 
 int main()
 {
-    auto window = sf::RenderWindow{ { 1920u, 1080u }, "SnakeGame" };
-    window.setFramerateLimit(144);
-    GameOptions options(100, 100);
-    Game game(options);
+    std::srand(std::time(nullptr));
+    auto window = sf::RenderWindow{ { config.windowWidth, config.windowHeight }, "SnakeGame" };
+    window.setFramerateLimit(10);
+    Game game;
 
     while (window.isOpen())
     {
@@ -17,8 +20,15 @@ int main()
                 window.close();
             }
         }
-
         window.clear();
+
+
+        if (!game.step()) {
+            std::cout << "Game over." << std::endl;
+            return 0;
+        }
+        game.draw(window);
+
         window.display();
     }
 }

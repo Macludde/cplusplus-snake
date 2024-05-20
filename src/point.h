@@ -1,25 +1,35 @@
+#include "config.h"
 #include <functional>
+#include <iostream>
 
 #ifndef POINT_H
 #define POINT_H
+
 struct Point {
     int x;
     int y;
-    Point(int x, int y): x(x), y(y) {}
-    Point(const Point& point): x(point.x), y(point.y) {}
 
-    Point operator+(const Point& point) const;
-    Point operator-(const Point& point) const;
-    bool operator==(const Point& point) const;
-    Point operator=(const Point& point);
+    Point(const int x, const int y) : x(x), y(y) {};
+    Point(const Point& other){
+        x = other.x;
+        y = other.y;
+    };
+
+    Point operator+(const Point& other);
+    Point operator-(const Point& other);
+    Point& operator=(const Point& other);
+    bool operator==(const Point& other) const;
+    bool operator<(const Point& other) const;
 };
+std::ostream& operator<<(std::ostream& out, const Point p);
 
 namespace std {
-    template <>
-    struct hash<Point> {
-        size_t operator()(const Point& point) const {
-            // Combine the hash values of x and y using a hash function
-            return hash<int>()(point.x) ^ hash<int>()(point.y);
+    template<> struct hash<Point>
+    {
+        std::size_t operator()(const Point& p) const noexcept
+        {
+            size_t hash = p.x*config.height*23 + p.y*17;
+            return hash;
         }
     };
 }

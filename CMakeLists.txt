@@ -16,6 +16,8 @@ add_executable(SnakeGame
     src/board.cc
     src/snake.cc
     src/point.cc
+    src/draw.cc
+    src/config.cc
 )
 target_link_libraries(SnakeGame PRIVATE sfml-graphics)
 target_compile_features(SnakeGame PRIVATE cxx_std_17)

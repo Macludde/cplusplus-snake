@@ -1,5 +1,7 @@
+#include "config.h"
 #include "board.h"
 #include "snake.h"
+#include <SFML/Graphics.hpp>
 
 #ifndef GAME_H
 #define GAME_H
@@ -10,32 +12,19 @@ enum Keypress {
     KEY_LEFT = 3,
     KEY_RESTART = 10
 };
-
-struct GameOptions {
-    int width;
-    int height;
-    int resolution = 20; // pixels per square side
-
-    GameOptions(int width, int height): width(width), height(height) {};
-    GameOptions(int width, int height, int resolution): width(width), height(height), resolution(resolution) {};
-    GameOptions(const GameOptions& options): width(options.width), height(options.height), resolution(options.resolution) {};
-};
-
 class Game {
 public:
-    Game(GameOptions options): options(options), 
-                               startingPoint(middlePoint(options.width, options.height)),
+    Game(): startingPoint(middlePoint(config.width, config.height)),
                                snake(startingPoint),
-                               board(options.width, options.height, &snake)
+                               board(&snake)
                                {};
 
     void reset();
     bool step();
     void onKeyPress(Keypress key);
 
-    void draw();
+    void draw(sf::RenderTarget& target);
 private:
-    GameOptions options;
     Point startingPoint;
 
     Board board;

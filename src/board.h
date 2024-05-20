@@ -1,15 +1,16 @@
+#include "config.h"
 #include "point.h"
 #include "snake.h"
 #include <vector>
 #include <unordered_set>
+#include <SFML/Graphics.hpp>
 
 #ifndef BOARD_H
 #define BOARD_H
 
 class Board {
 public:
-    Board(int width, int height, Snake* snake): width(width), height(height), snake(snake), food() {}
-    Board(int width, int height, int resolution, Snake* snake): width(width), height(height), resolution(resolution), snake(snake), food() {}
+    Board(Snake* snake);
     // Board(const Board& b): width(b.width), height(b.height), snake(b.snake), food(b.food) {}
     // Board& operator=(const Board& b) {
     //     width = b.width;
@@ -29,21 +30,19 @@ public:
 
     void reset();
 
-    void draw();
+    void draw(sf::RenderTarget& target);
 private:
     Point randomPoint() const;
     Point randomFreePoint() const;
 
+    int width = config.width;
+    int height = config.height;
+
     Snake* snake;
     
     std::unordered_set<Point> food;
-    int width;
-    int height;
-    int resolution = 20;
 
-
-    void drawFood(Point point);
-
+    void drawFood(sf::RenderTarget& target, Point point);
 };
 
 #endif

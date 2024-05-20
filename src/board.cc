@@ -1,9 +1,16 @@
+#include "config.h"
 #include "point.h"
 #include "board.h"
 #include <vector>
 #include <unordered_set>
 #include <random>
-#include <SFML/Graphics.hpp>
+#include <iostream>
+
+Board::Board(Snake* snake): snake(snake), food() {
+    addFood();
+    addFood();
+    addFood();
+}
 
 bool Board::isOutside(Point point) const {
     if (point.x < 0 || point.x >= width) {
@@ -19,9 +26,13 @@ bool Board::isFree(const Point point) const {
     return !isFood(point) && !isSnake(point);
 }
 bool Board::isFood(const Point point) const {
+    std::cout << "Checking if food" << std::endl;
     return food.find(point) != food.end();
 }
 bool Board::isSnake(const Point point) const {
+    std::cout << "Checking if snake" << std::endl;
+    snake->isPartOfSnake(point);
+    std::cout << "Check of snake done" << std::endl;
     return snake->isPartOfSnake(point);
 }
 
@@ -30,7 +41,7 @@ void Board::eatFood(Point point) {
 }
 
 void Board::addFood() {
-    Point positionOfFood = randomFreePoint();
+    const Point positionOfFood = randomFreePoint();
     food.insert(positionOfFood);
 }
 
@@ -46,21 +57,11 @@ Point Board::randomPoint() const {
 
 Point Board::randomFreePoint() const {
     Point point = randomPoint();
+    std::cout << "Checking if free: " << point << std::endl;
     while (!isFree(point)) {
+        std::cout << "Chose non-free spot, trying again" << std::endl;
         point = randomPoint();
     } 
+    std::cout << "Found free position" << std::endl;
     return point;
-}
-
-void Board::draw() {
-    auto iter = food.begin();
-    while (iter != food.end()) {
-        drawFood(*iter);
-        iter++;
-    }
-
-}
-
-void Board::drawFood(Point point) {
-    // TODO
 }

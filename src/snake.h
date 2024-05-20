@@ -1,5 +1,7 @@
 #include "point.h"
 #include <deque>
+#include <iostream>
+#include <SFML/Graphics.hpp>
 
 #ifndef SNAKE_H
 #define SNAKE_H
@@ -18,12 +20,15 @@ public:
     
     void reset(Point headPosition);
     
-    void draw();
+    void draw(sf::RenderTarget& target);
 private:
     void addInitialBodyPositions();
     Point head;
     Point direction;
     std::deque<Point> body;
+
+    void drawHead(sf::RenderTarget& target);
+    void drawBodyPiece(sf::RenderTarget& target, int index);
 };
 
 #endif
