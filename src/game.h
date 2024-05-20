@@ -15,9 +15,11 @@ enum Keypress {
 class Game {
 public:
     Game(): startingPoint(middlePoint(config.width, config.height)),
-                               snake(startingPoint),
-                               board(&snake)
-                               {};
+            snake(startingPoint),
+            board(&snake),
+            wantedDirection(UP) {
+        reset();
+    };
 
     void reset();
     bool step();
@@ -30,6 +32,8 @@ private:
 
     Board board;
     Snake snake;
+
+    Point wantedDirection;
 };
 
 #endif

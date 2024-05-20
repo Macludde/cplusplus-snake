@@ -13,8 +13,12 @@ public:
     }
     
     void changeDirection(const Point direction);
+    Point currentDirection() { return direction; };
     const Point nextPosition();
-    void move(bool shouldGrow);
+    void move();
+    void grow();
+
+    const Point tail() { return body.back(); }
 
     bool isPartOfSnake(Point point);
     
@@ -26,6 +30,7 @@ private:
     Point head;
     Point direction;
     std::deque<Point> body;
+    int foodBank = 0;
 
     void drawHead(sf::RenderTarget& target);
     void drawBodyPiece(sf::RenderTarget& target, int index);

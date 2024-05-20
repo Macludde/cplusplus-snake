@@ -15,8 +15,10 @@ struct Point {
         y = other.y;
     };
 
-    Point operator+(const Point& other);
-    Point operator-(const Point& other);
+    Point operator+(const Point& other) const;
+    Point operator-(const Point& other) const;
+    Point operator*(const int scale) const;
+    Point operator/(const int scale) const;
     Point& operator=(const Point& other);
     bool operator==(const Point& other) const;
     bool operator<(const Point& other) const;

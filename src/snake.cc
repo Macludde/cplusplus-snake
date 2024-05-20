@@ -5,18 +5,33 @@
 #include <iostream>
 
 void Snake::changeDirection(const Point direction) {
+    if (direction == this->direction) return;
+    Point summed = this->direction+direction;
+    if (summed.x == 0 && summed.y == 0) {
+        // opposite direction
+        return;
+    }
     this->direction = direction;
 }
 
 const Point Snake::nextPosition() {
     return head + direction;
+    // The below code enables "looping" around the edges, like a torus
+    // Point newPos = head + direction;
+    // return Point((newPos.x + config.width)%config.width, (newPos.y + config.height)%config.height);
 }
 
-void Snake::move(bool shouldGrow) {
-    if (!shouldGrow)
+void Snake::move() {
+    if (foodBank > 0)
+        --foodBank;
+    else
         body.pop_back();
     body.push_front(head);
-    head = head + direction;
+    head = nextPosition();
+}
+
+void Snake::grow() {
+    ++foodBank;
 }
 
 void Snake::reset(Point headPosition) {
@@ -34,11 +49,10 @@ void Snake::addInitialBodyPositions() {
 }
 
 bool Snake::isPartOfSnake(Point point) {
-    return false;
-    std::cout << body[0] << ", " << body[1] << ", " << body[2] << std::endl;
     if (point == head) {
         return true;
     }
-    return false;
-    return std::find(body.begin(), body.end(), point) != body.end();
+    return std::find_if(body.begin(), body.end(), [&point](Point p) {
+        return p == point;
+    }) != body.end();
 }

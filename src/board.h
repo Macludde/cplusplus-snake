@@ -10,7 +10,7 @@
 
 class Board {
 public:
-    Board(Snake* snake);
+    Board(Snake* snake): snake(snake), food() {};
     // Board(const Board& b): width(b.width), height(b.height), snake(b.snake), food(b.food) {}
     // Board& operator=(const Board& b) {
     //     width = b.width;

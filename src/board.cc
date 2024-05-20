@@ -7,11 +7,6 @@
 #include <iostream>
 #include <ctime>
 
-Board::Board(Snake* snake): snake(snake), food() {
-    for (int i = 0; i < config.amountOfFood; ++i)
-        addFood();
-}
-
 bool Board::isOutside(Point point) const {
     if (point.x < 0 || point.x >= width) {
         return true;
@@ -26,13 +21,9 @@ bool Board::isFree(const Point point) const {
     return !isFood(point) && !isSnake(point);
 }
 bool Board::isFood(const Point point) const {
-    std::cout << "Checking if food" << std::endl;
     return food.find(point) != food.end();
 }
 bool Board::isSnake(const Point point) const {
-    std::cout << "Checking if snake" << std::endl;
-    snake->isPartOfSnake(point);
-    std::cout << "Check of snake done" << std::endl;
     return snake->isPartOfSnake(point);
 }
 

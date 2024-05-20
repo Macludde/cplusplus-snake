@@ -13,17 +13,17 @@ void Game::reset() {
 bool Game::step() {
     if (!gameRunning)
         return false;
+    snake.changeDirection(wantedDirection);
     Point head = snake.nextPosition();
-    if (board.isOutside(head)) {
+    if (board.isOutside(head) || (board.isSnake(head) && !(snake.tail() == head))) {
         gameRunning = false;
         return false;
     }
+    snake.move();
     if (board.isFood(head)) {
         board.eatFood(head);
-        snake.move(true);
         board.addFood();
-    } else {
-        snake.move(false);
+        snake.grow();
     }
     return true;
 }
@@ -31,16 +31,20 @@ bool Game::step() {
 void Game::onKeyPress(Keypress key) {
     switch (key) {
         case Keypress::KEY_UP:
-            snake.changeDirection(UP);
+            if (snake.currentDirection() == DOWN) return;
+            wantedDirection = UP;
             break;
         case Keypress::KEY_LEFT:
-            snake.changeDirection(LEFT);
+            if (snake.currentDirection() == RIGHT) return;
+            wantedDirection = LEFT;
             break;
         case Keypress::KEY_DOWN:
-            snake.changeDirection(DOWN);
+            if (snake.currentDirection() == UP) return;
+            wantedDirection = DOWN;
             break;
         case Keypress::KEY_RIGHT:
-            snake.changeDirection(RIGHT);
+            if (snake.currentDirection() == LEFT) return;
+            wantedDirection = RIGHT;
             break;
         case Keypress::KEY_RESTART:
             Game::reset();

@@ -1,2 +1,2 @@
 #include "config.h"
-GameOptions config(60, 50, 20);
+GameOptions config(30, 20, 40);

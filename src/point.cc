@@ -11,11 +11,17 @@ std::ostream& operator<<(std::ostream& out, const Point p) {
     return out;
 }
 
-Point Point::operator+(const Point& other) {
+Point Point::operator+(const Point& other) const {
     return Point(x+other.x, y+other.y);
 };
-Point Point::operator-(const Point& other) {
+Point Point::operator-(const Point& other) const {
     return Point(x-other.x, y-other.y);
+};
+Point Point::operator*(const int scale) const {
+    return Point(x*scale, y*scale);
+};
+Point Point::operator/(const int scale) const {
+    return Point(x/scale, y/scale);
 };
 
 Point& Point::operator=(const Point& other) {
@@ -26,7 +32,6 @@ Point& Point::operator=(const Point& other) {
 
 
 bool Point::operator==(const Point& other) const {
-    std::cout << "checking point equality: " << (*this) << " == " << other << std::endl;
     return (x == other.x && y == other.y);
 };
 
