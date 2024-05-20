@@ -76,8 +76,6 @@ void Snake::drawHead(sf::RenderTarget& target) {
     drawConnectingSquare(target, head*config.resolution, direction*-1);
 }
 
-
-
 void Snake::drawBodyPiece(sf::RenderTarget& target, int i) {
     Point point = body[i];
 
