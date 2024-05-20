@@ -7,11 +7,15 @@
 void Game::reset() {
     board.reset();
     snake.reset(startingPoint);
+    gameRunning = true;
 }
 
 bool Game::step() {
+    if (!gameRunning)
+        return false;
     Point head = snake.nextPosition();
     if (board.isOutside(head)) {
+        gameRunning = false;
         return false;
     }
     if (board.isFood(head)) {

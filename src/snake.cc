@@ -20,13 +20,15 @@ void Snake::move(bool shouldGrow) {
 }
 
 void Snake::reset(Point headPosition) {
+    direction = UP;
+    body.clear();
     head = headPosition;
     addInitialBodyPositions();
 }
 void Snake::addInitialBodyPositions() {
     Point curr = head - direction;
     for (int i = 0; i < 3; ++i) {
-        body.push_front(curr);
+        body.push_back(curr);
         curr = curr - direction;
     }
 }

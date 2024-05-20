@@ -8,6 +8,8 @@ struct GameOptions {
     unsigned int windowHeight;
     unsigned int windowWidth;
 
+    unsigned char amountOfFood = 2;
+
     GameOptions(int width, int height, int resolution): width(width), height(height), resolution(resolution) {
         windowWidth = resolution*width;
         windowHeight = resolution*height;

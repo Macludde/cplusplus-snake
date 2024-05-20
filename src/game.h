@@ -25,6 +25,7 @@ public:
 
     void draw(sf::RenderTarget& target);
 private:
+    bool gameRunning = true;
     Point startingPoint;
 
     Board board;

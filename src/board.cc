@@ -5,11 +5,11 @@
 #include <unordered_set>
 #include <random>
 #include <iostream>
+#include <ctime>
 
 Board::Board(Snake* snake): snake(snake), food() {
-    addFood();
-    addFood();
-    addFood();
+    for (int i = 0; i < config.amountOfFood; ++i)
+        addFood();
 }
 
 bool Board::isOutside(Point point) const {
@@ -47,6 +47,9 @@ void Board::addFood() {
 
 void Board::reset() {
     food.clear();
+    
+    for (int i = 0; i < config.amountOfFood; ++i)
+        addFood();
 }
 
 using std::rand;
@@ -57,11 +60,8 @@ Point Board::randomPoint() const {
 
 Point Board::randomFreePoint() const {
     Point point = randomPoint();
-    std::cout << "Checking if free: " << point << std::endl;
     while (!isFree(point)) {
-        std::cout << "Chose non-free spot, trying again" << std::endl;
         point = randomPoint();
     } 
-    std::cout << "Found free position" << std::endl;
     return point;
 }
