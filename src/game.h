@@ -16,7 +16,7 @@ class Game {
 public:
     Game(): startingPoint(middlePoint(config.width, config.height)),
             snake(startingPoint),
-            board(&snake),
+            board(snake),
             wantedDirection(UP) {
         reset();
     };

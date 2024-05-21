@@ -23,7 +23,7 @@ struct Point {
     bool operator==(const Point& other) const;
     bool operator<(const Point& other) const;
 };
-std::ostream& operator<<(std::ostream& out, const Point p);
+std::ostream& operator<<(std::ostream& out, Point p);
 
 namespace std {
     template<> struct hash<Point>

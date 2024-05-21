@@ -6,7 +6,7 @@ Point middlePoint(int width, int height) {
     return Point(width/2, height/2);
 }
 
-std::ostream& operator<<(std::ostream& out, const Point p) {
+std::ostream& operator<<(std::ostream& out, Point p) {
     out << "(" << p.x << ", " << p.y << ")";
     return out;
 }

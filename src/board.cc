@@ -17,14 +17,14 @@ bool Board::isOutside(Point point) const {
     return false;
 }
     
-bool Board::isFree(const Point point) const {
+bool Board::isFree(Point point) const {
     return !isFood(point) && !isSnake(point);
 }
-bool Board::isFood(const Point point) const {
+bool Board::isFood(Point point) const {
     return food.find(point) != food.end();
 }
-bool Board::isSnake(const Point point) const {
-    return snake->isPartOfSnake(point);
+bool Board::isSnake(Point point) const {
+    return snake.isPartOfSnake(point);
 }
 
 void Board::eatFood(Point point) {

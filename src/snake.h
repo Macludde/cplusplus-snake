@@ -8,17 +8,17 @@
 
 class Snake {
 public:
-    Snake(const Point headPosition): head(headPosition), body(), direction(UP) {
+    Snake(Point headPosition): head(headPosition), body(), direction(UP) {
         addInitialBodyPositions();
     }
     
-    void changeDirection(const Point direction);
+    void changeDirection(Point direction);
     Point currentDirection() { return direction; };
-    const Point nextPosition();
+    Point nextPosition() const;
     void move();
     void grow();
 
-    const Point tail() { return body.back(); }
+    Point tail() { return body.back(); }
 
     bool isPartOfSnake(Point point);
     

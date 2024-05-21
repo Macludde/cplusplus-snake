@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <iostream>
 
-void Snake::changeDirection(const Point direction) {
+void Snake::changeDirection(Point direction) {
     if (direction == this->direction) return;
     Point summed = this->direction+direction;
     if (summed.x == 0 && summed.y == 0) {
@@ -14,7 +14,7 @@ void Snake::changeDirection(const Point direction) {
     this->direction = direction;
 }
 
-const Point Snake::nextPosition() {
+Point Snake::nextPosition() const {
     return head + direction;
     // The below code enables "looping" around the edges, like a torus
     // Point newPos = head + direction;
